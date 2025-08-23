@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<!-- Кнопка для вызова модального окна -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
+  🎧 Загрузить аудиофайл
+</button>
+
+{% include "components/modal_for_upload.html" %}
+
+{% include "components/audio_list.html" %}
+
+
+
+
+
+{% endblock %}

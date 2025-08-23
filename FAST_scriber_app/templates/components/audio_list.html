@@ -1,0 +1,120 @@
+<form method="post" action="/bulk-action">
+<table class="table table-striped table-hover mt-4">
+  <thead>
+    <tr>
+      <th>Имя файла</th>
+        <th></th>
+      <th>Формат</th>
+      <th>Загружен</th>
+      <th>Транскрибирован</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Выбрать</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.original_filename }}</td>
+        <td><audio controls>
+  <source src="{{ item.audio_url }}" type="audio/{{ item.format }}">
+</audio></td>
+
+
+      <td>{{ item.format }}</td>
+      <td>{{ item.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+
+
+<td>
+  <div class="transcript-status" data-id="{{ item.id }}" data-status="{{ item.is_transcript_ready or 'None' }}">
+    {% if item.is_transcript_ready == "Done" %}
+      <a href="/go_transcribation/{{ item.id }}" class="btn btn-outline-success">Читать</a>
+    {% elif item.is_transcript_ready == "In process" %}
+      <span class="text-muted">Выполняется</span>
+    {% elif item.is_transcript_ready == "Failed" %}
+      <span class="text-danger">Ошибка</span>
+    {% else %}
+      <span class="text-secondary">Не обработан</span>
+    {% endif %}
+  </div>
+</td>
+
+
+ <td></td>
+ <td></td>
+
+        <td style="position: relative;">
+  <button type="button" class="btn btn-outline-primary btn-sm" onclick="showModelSelector('{{ item.id }}')">
+    Транскрибировать
+  </button>
+
+  <div id="model-selector-{{ item.id }}" class="d-none position-absolute bg-white border p-2" style="z-index: 10;">
+    <select class="form-select form-select-sm w-auto" id="model-select-{{ item.id }}">
+      <option value="Base">Модель Base</option>
+      <option value="Small">Модель Small</option>
+      <option value="Medium">Модель Medium</option>
+      <option value="Large-v1">Модель Large-v1</option>
+      <option value="Large-v2">Модель Large-v2</option>
+      <option value="Large-v3">Модель Large-v3</option>
+    </select>
+    <button type="button" class="btn btn-sm btn-success mt-2" onclick="redirectToTranscribe('{{ item.id }}')">
+      Транскрибировать
+    </button>
+  </div>
+</td>
+
+        <td>
+
+        <a href="/move-to-bin/{{ item.id }}" class="btn btn-outline-danger">Удалить в корзину</a>
+        <td>
+        <input type="checkbox" class="form-check-input" name="selected_ids" value="{{ item.id }}">
+        </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+
+  <div class="d-flex gap-2 mt-4">
+  <button type="submit" class="btn btn-outline-danger" name="action" value="throw_bulk_to_bin">
+    Удалить выбранные в корзину
+  </button>
+
+  <div style="position: relative;">
+    <button type="button" class="btn btn-outline-primary" onclick="showBulkModelSelector()">
+      Транскрибировать выбранные
+    </button>
+
+    <div id="bulk-model-selector" class="d-none position-absolute bg-white border p-2" style="top: 100%; left: 0; z-index: 10;">
+      <select class="form-select form-select-sm w-auto" id="bulk-model-select">
+        <option value="base">Модель Base</option>
+        <option value="small">Модель Small</option>
+        <option value="medium">Модель Medium</option>
+        <option value="large-v1">Модель Large-v1</option>
+        <option value="large-v2">Модель Large-v2</option>
+        <option value="large-v3">Модель Large-v3</option>
+      </select>
+      <button type="submit" class="btn btn-sm btn-success mt-2" name="action" value="transcribe_bulk" onclick="setBulkModel()">
+        Подтвердить
+      </button>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+
+</form>
+
+  <script src="{{ url_for('static', path='js/single_playing_script.js') }}"></script>
+    <script src="{{ url_for('static', path='js/transcript_polling.js') }}"></script>
+    <script src="{{ url_for('static', path='js/select_model_for_single_transcription.js') }}"></script>
+    <script src="{{ url_for('static', path='js/select_model_for_bulk_transcription.js') }}"></script>
+
+

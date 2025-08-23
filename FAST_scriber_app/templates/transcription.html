@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+<h2>Транскрипция файла {{audio.original_filename}}</h2>
+{% endblock %}
+
+{% block content %}
+<h1>Транскрипция файла {{audio.original_filename}}
+  <a href="#" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#downloadModal">Скачать текст</a>
+
+  {% include "components/download_modal.html" %}
+</h1>
+
+<audio id="audioPlayer" controls style="width: 100%;">
+  <source src="/static/audio/{{ audio.audio_uuid_name }}" type="audio/wav">
+  Ваш браузер не поддерживает аудио.
+</audio>
+
+<ul class="segment-list list-group" data-transcript="{{ audio.transcript_uuid_name }}">
+  {% for segment in transcript.text.segments %}
+    <li class="segment list-group-item"
+        data-start="{{ segment.start }}"
+        data-end="{{ segment.end }}">
+      <strong>{{ segment.start| mmss  }}–{{ segment.end| mmss  }}</strong>:
+      <span class="segment-text">{{ segment.text }}</span>
+    </li>
+  {% endfor %}
+</ul>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+  <script src="{{ url_for('static', path='js/segment_playing_script.js') }}"></script>
+  <script src="{{ url_for('static', path='js/update_segment.js') }}"></script>
+
+
+
+
+{% endblock %}

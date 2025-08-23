@@ -1,0 +1,71 @@
+<form method="post" action="/bulk-action">
+<table class="table table-striped table-hover mt-4">
+  <thead>
+    <tr>
+      <th>Имя файла</th>
+        <th></th>
+      <th>Формат</th>
+      <th>Перемщен</th>
+      <th>Транскрибирован</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Выбрать</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.original_filename }}</td>
+        <td><audio controls>
+  <source src="{{ item.audio_url }}" type="audio/{{ item.format }}">
+</audio></td>
+
+
+      <td>{{ item.format }}</td>
+      <td>{{ item.time_of_throwing_to_bin.strftime('%Y-%m-%d %H:%M') }}</td>
+
+
+<td>
+  <div class="transcript-status" data-id="{{ item.id }}" data-status="{{ item.is_transcript_ready }}">
+    {% if item.is_transcript_ready == "Done" %}
+      <a href="/go_transcribation/{{ item.id }}" class="btn btn-outline-success">Читать</a>
+    {% elif item.is_transcript_ready == "In process" %}
+      <span class="text-muted">Выполняется</span>
+    {% elif item.is_transcript_ready == "Failed" %}
+      <span class="text-danger">Ошибка</span>
+    {% else %}
+      <span class="text-secondary">Не обработан</span>
+    {% endif %}
+  </div>
+</td>
+
+
+ <td></td>
+ <td></td>
+
+        <td>
+        <a href="/restore/{{ item.id }}" class="btn btn-outline-primary">Восстановить</a></td>
+
+        <td>
+
+        <a href="/delete-single-manual/{{ item.id }}" class="btn btn-outline-danger">Удалить окончательно</a>
+        <td>
+        <input type="checkbox" class="form-check-input" name="selected_ids" value="{{ item.id }}">
+        </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+    <button type="submit" class="btn btn-outline-danger" name="action" value="delete_bulk">Удалить выбранные окончательно</button>
+    <button type="submit" class="btn btn-outline-primary" name="action" value="restore_bulk">Восстановить выбранные</button>
+
+</form>
+
+  <script src="{{ url_for('static', path='js/single_playing_script.js') }}"></script>
+  <script src="{{ url_for('static', path='js/transcript_polling.js') }}"></script>
+

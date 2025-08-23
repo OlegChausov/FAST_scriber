@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+ <link rel="stylesheet" href="{{ url_for('static', path='css/bootstrap.min.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}FAST Scriber{% endblock %}</title>
+
+
+ <link rel="icon" href="/static/images/favicon.png" type="image/png">
+
+</head>
+<body>
+
+<div class="d-flex justify-content-between align-items-center mb-3" style="background-color: #f8f9fa; padding: 0.5rem 0.2rem; gap: 0.5rem;">
+  <!-- Логотип слева -->
+  <a href="/" class="text-decoration-none d-flex align-items-center gap-2">
+    <img src="/static/images/logo.png" alt="FAST Scriber" style="height: 150px; margin-top: 0.01rem; margin-bottom: 0.01rem;">
+  </a>
+
+  <!-- Корзина справа -->
+  <a href="/bin" class="text-decoration-none d-flex align-items-center gap-2">
+    <img src="/static/images/bin.png" alt="Корзина" style="height: 100px; margin-top: 0.01rem; margin-bottom: 0.01rem;">
+    <h1 class="mb-0">Корзина</h1>
+  </a>
+</div>
+
+
+
+    {% block content %}
+    <!-- Основной контент страницы -->
+    {% endblock %}
+
+    {% block scripts %}
+    <!-- Сюда можно класть JS файлы -->
+    {% endblock %}
+
+</body>
+</html>
+
+  <script src="{{ url_for('static', path='js/bootstrap.bundle.min.js') }}"></script>

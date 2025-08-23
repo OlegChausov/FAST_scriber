@@ -1,0 +1,26 @@
+<!-- Модальное окно Bootstrap -->
+{% include "components/spinner.html" %}
+
+
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="/upload" method="post" enctype="multipart/form-data" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadModalLabel">Загрузка аудио 🎤</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="fileInput" class="form-label">Выберите файл</label>
+              <input class="form-control" type="file" id="fileInput" name="files" accept=".mp3,.wav,.m4a" multiple required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">📤 Загрузить</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="{{ url_for('static', path='js/spinner.js') }}"></script>

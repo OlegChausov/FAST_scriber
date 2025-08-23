@@ -1,0 +1,29 @@
+<div class="modal fade" id="downloadModal" tabindex="-1" aria-labelledby="downloadModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <form action="/download/{{ audio.id }}" method="post" enctype="multipart/form-data">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="downloadModalLabel">Скачать транскрипт</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+
+        <div class="modal-body">
+          <span>Выберите формат</span>
+          <select class="form-select form-select-sm w-auto" name="format">
+            <option value="docx">📄docx</option>
+            <option value="txt">📝txt</option>
+          </select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Скачать</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
