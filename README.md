@@ -43,6 +43,25 @@
 
 ---
 
+
+## Скриншоты
+![Screeshots of app](/assets/images/01.png)
+![Screeshots of app](/assets/images/02.png)
+![Screeshots of app](/assets/images/03.png)
+![Screeshots of app](/assets/images/04.png)
+![Screeshots of app](/assets/images/05.png)
+![Screeshots of app](/assets/images/06.png)
+![Screeshots of app](/assets/images/07.png)
+![Screeshots of app](/assets/images/08.png)
+![Screeshots of app](/assets/images/09.png)
+![Screeshots of app](/assets/images/10.png)
+![Screeshots of app](/assets/images/11.png)
+
+## Обратная связь
+@Sharky1111
+
+
+
 ## 📥 Установка и запуск
 
 ```bash
@@ -50,3 +69,4 @@ git clone https://github.com/your-username/fast-scriber.git
 cd fast-scriber
 pip install -r requirements.txt
 python run_server.py
+
